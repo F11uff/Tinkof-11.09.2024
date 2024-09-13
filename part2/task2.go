@@ -1,11 +1,5 @@
 package main
 
-//5
-//1 3 -1 10 -1
-//
-//YES
-//1 2 3 4 5
-
 func main() {
 }
 
