@@ -10,7 +10,7 @@ func main() {
 }
 
 func restoreSnowFallData(data []int) (result []int, check bool) {
-	res, result := make([]int, len(data)), make([]int, 0, len(data))
+	dp, result := make([]int, len(data)), make([]int, 0, len(data))
 	n := len(data)
 	check = true
 
@@ -20,18 +20,18 @@ func restoreSnowFallData(data []int) (result []int, check bool) {
 
 	for i := 0; i < len(data); i++ {
 		if data[i] != -1 {
-			res[i] = data[i]
+			dp[i] = data[i]
 		} else if i > 0 {
-			res[i] = res[i-1] + 1
+			dp[i] = dp[i-1] + 1
 		}
 	}
 
-	check = checkError(n, res)
+	check = checkError(n, dp)
 
 	if check {
-		result = append(result, res[0])
+		result = append(result, dp[0])
 		for i := 1; i < len(data); i++ {
-			result = append(result, res[i]-res[i-1])
+			result = append(result, dp[i]-dp[i-1])
 		}
 
 	}
@@ -39,8 +39,8 @@ func restoreSnowFallData(data []int) (result []int, check bool) {
 	return result, check
 }
 
-func checkError(n int, res []int) (check bool) {
-	maxRes := res[0]
+func checkError(n int, dp []int) (check bool) {
+	maxRes := dp[0]
 	check = true
 
 	if maxRes == 0 {
@@ -48,11 +48,11 @@ func checkError(n int, res []int) (check bool) {
 	}
 
 	for i := 1; i < n && check; i++ {
-		if maxRes >= res[i] {
+		if maxRes >= dp[i] {
 			check = false
 			break
 		} else {
-			maxRes = res[i]
+			maxRes = dp[i]
 		}
 	}
 
