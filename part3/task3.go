@@ -1,16 +1,15 @@
 package main
 
-import "fmt"
+import (
+	"strings"
+)
 
 func main() {
-	lastCombination, requirements := "abababababcaba", "ca"
-	length := 3
-	str := searchPassword(lastCombination, requirements, length)
-	fmt.Println(str)
+
 }
 
 func searchPassword(lastCombination, requirements string, length int) string {
-	if len(lastCombination) < len(requirements) || len(lastCombination) < length {
+	if len(lastCombination) < len(requirements) || length < len(requirements) {
 		return "-1"
 	}
 
@@ -20,26 +19,22 @@ func searchPassword(lastCombination, requirements string, length int) string {
 		passwordMaps[words] = 0
 	}
 
-	fmt.Println("-----", passwordMaps)
-
 	for i := len(lastCombination) - 1; i >= length-1; i-- {
 		str := lastCombination[i-length+1 : i+1]
-		fmt.Println(str)
 		check := true
+
 		for _, words := range str {
 			passwordMaps[words]++
 		}
 
-		fmt.Println(passwordMaps)
-
-		for _, count := range passwordMaps {
-			if count <= 0 {
+		for index, count := range passwordMaps {
+			if count <= 0 || !strings.Contains(requirements, string(index)) {
 				check = false
 			}
 		}
 
 		if check {
-			return lastCombination[i-length+1 : i+1]
+			return str
 		}
 
 		passwordMaps = refreshMap(passwordMaps)
@@ -51,8 +46,8 @@ func searchPassword(lastCombination, requirements string, length int) string {
 func refreshMap(maps map[rune]int) map[rune]int {
 	newMap := make(map[rune]int, len(maps))
 
-	for index, _ := range maps {
-		newMap[index] = 0
+	for index := range maps {
+		delete(maps, index)
 	}
 
 	return newMap
