@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 //5
 //1 3 -1 10 -1
 //
@@ -9,11 +7,10 @@ import "fmt"
 //1 2 3 4 5
 
 func main() {
-	fmt.Println(restoreSnowFallData([]int{-1, -1, 6, -1, -1, 20}))
 }
 
 func restoreSnowFallData(data []int) (result []int, check bool) {
-	res, result := make([]int, len(data)), make([]int, len(data))
+	res, result := make([]int, len(data)), make([]int, 0, len(data))
 	n := len(data)
 	check = true
 
@@ -32,10 +29,11 @@ func restoreSnowFallData(data []int) (result []int, check bool) {
 	check = checkError(n, res)
 
 	if check {
-		result[0] = res[0]
+		result = append(result, res[0])
 		for i := 1; i < len(data); i++ {
-			result[i] = res[i] - res[i-1]
+			result = append(result, res[i]-res[i-1])
 		}
+
 	}
 
 	return result, check
@@ -50,7 +48,7 @@ func checkError(n int, res []int) (check bool) {
 	}
 
 	for i := 1; i < n && check; i++ {
-		if maxRes > res[i] || maxRes == res[i] {
+		if maxRes >= res[i] {
 			check = false
 			break
 		} else {
