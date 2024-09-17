@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-func TestSimpleNumber(t *testing.T) {
+func TestSimpleNumbers(t *testing.T) {
 	tests := []struct {
 		l      int64
 		r      int64
@@ -20,6 +20,8 @@ func TestSimpleNumber(t *testing.T) {
 		{70, 80, 0},
 		{80, 90, 1},
 		{90, 100, 0},
+		{1, 1000000, 189},
+		{1, 1000000000, 3465},
 	}
 
 	for _, tt := range tests {

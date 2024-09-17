@@ -45,11 +45,11 @@ func countNumbers(l, r int64, tableEratosfens []int) int64 {
 			break
 		}
 
-		degIn := countDivisors(r, x)
-		degOut := countDivisors(l-1, x)
+		degIn := Divisors(r, x)
+		degOut := Divisors(l-1, x)
 
 		for deg := degOut + 1; deg <= degIn; deg++ {
-			if deg > 1 && isPrime(deg+1, tableEratosfens) {
+			if deg > 1 && primeCount(deg+1, tableEratosfens) {
 				ans++
 			}
 		}
@@ -58,7 +58,7 @@ func countNumbers(l, r int64, tableEratosfens []int) int64 {
 	return ans
 }
 
-func countDivisors(n int64, value int64) int {
+func Divisors(n int64, value int64) int {
 	deg := 0
 
 	for n/value > 0 {
@@ -69,7 +69,7 @@ func countDivisors(n int64, value int64) int {
 	return deg
 }
 
-func isPrime(n int, tableEratosfens []int) bool {
+func primeCount(n int, tableEratosfens []int) bool {
 	if n < 2 {
 		return false
 	}
