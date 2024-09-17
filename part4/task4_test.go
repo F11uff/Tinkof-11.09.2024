@@ -6,9 +6,9 @@ import (
 
 func TestSimpleNumber(t *testing.T) {
 	tests := []struct {
-		l      int
-		r      int
-		result int
+		l      int64
+		r      int64
+		result int64
 	}{
 		{1, 9, 2},
 		{10, 20, 1},
@@ -23,7 +23,7 @@ func TestSimpleNumber(t *testing.T) {
 	}
 
 	for _, tt := range tests {
-		result := simpleNumber(tt.l, tt.r)
+		result := simpleNumbers(tt.l, tt.r)
 		if result != tt.result {
 			t.Errorf("ERROR! Expected %d, got %d", tt.result, result)
 		}
